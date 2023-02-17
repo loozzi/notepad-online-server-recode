@@ -7,7 +7,8 @@ const morgan = require("morgan");
 
 const app = express();
 app.use(morgan("common"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
