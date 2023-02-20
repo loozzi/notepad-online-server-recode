@@ -53,7 +53,7 @@ module.exports = {
       if (!!note)
         return {
           code: 200,
-          message: "Note deleted successfully",
+          message: "Deleted note successfully",
         };
       else
         return {
@@ -66,12 +66,12 @@ module.exports = {
       const note = await _Note.findOneAndDelete({
         username: user.username,
         permalink: permalink,
-        password: md5(password),
+        password: password.length > 0 ? md5(password) : "",
       });
       if (!!note)
         return {
           code: 200,
-          message: "Note deleted successfully",
+          message: "Deleted note successfully",
         };
       else
         return {
@@ -143,10 +143,28 @@ module.exports = {
         },
       };
     } else {
-      return {
-        code: 401,
-        message: "Note does not exist or the password is incorrect",
-      };
+      try {
+        const note = await _Note.findOne({
+          permalink: permalink,
+        });
+        return {
+          code: 401,
+          message: "Password is incorrect",
+          elements: {
+            note: {
+              username: note.username,
+              title: note.title,
+              created_at: note.created_at,
+              view: note.view,
+            },
+          },
+        };
+      } catch (e) {
+        return {
+          code: 404,
+          message: "Note does not exist",
+        };
+      }
     }
   },
   getAll: async ({ _id, page, limit }) => {
@@ -164,7 +182,12 @@ module.exports = {
     const notes = await _Note
       .find({ username: user.username })
       .skip((_page - 1) * _limit)
-      .limit(_limit);
+      .limit(_limit)
+      .then((data) => {
+        return data
+          .sort((x, y) => y.created_at - x.created_at)
+          .splice(0, _limit);
+      });
     return {
       code: 200,
       elements: {
