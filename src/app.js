@@ -15,13 +15,11 @@ app.use(
     credentials: true,
     origin: [
       "http://localhost:3000",
-      "http://171.241.26.85:3000",
-      "https://171.241.26.85",
-      "http://127.0.0.1:3000/",
-      "https://127.0.0.1:3000/",
-      "http://127.0.0.1",
+      "http://notepad-loozzi.surge.sh",
+      "https://notepad-loozzi.surge.sh",
       "*",
     ],
+    methods: ["GET", "POST", "DELETE", "PUT"],
   })
 );
 
