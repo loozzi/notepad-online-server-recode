@@ -17,6 +17,8 @@ app.use(
       "http://localhost:3000",
       "http://notepad-loozzi.surge.sh",
       "https://notepad-loozzi.surge.sh",
+      "http://notepad-loozzi.vercel.app",
+      "https://notepad-loozzi.vercel.app",
       "*",
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
