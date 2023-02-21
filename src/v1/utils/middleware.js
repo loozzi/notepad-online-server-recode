@@ -9,7 +9,7 @@ const publicKey = fs.readFileSync(
 module.exports = {
   isLogging: async (req, res, next) => {
     try {
-      const accessToken = req.cookies.accessToken;
+      const accessToken = req.query.accessToken || "";
       const data = await jwt.verify(accessToken, publicKey, {
         algorithms: ["RS256"],
       });

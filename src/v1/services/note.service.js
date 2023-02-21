@@ -181,12 +181,12 @@ module.exports = {
 
     const notes = await _Note
       .find({ username: user.username })
-      .skip((_page - 1) * _limit)
-      .limit(_limit)
+      // .skip((_page - 1) * _limit)
+      // .limit(_limit)
       .then((data) => {
         return data
           .sort((x, y) => y.created_at - x.created_at)
-          .splice(0, _limit);
+          .splice(_page - 1, _limit);
       });
     return {
       code: 200,

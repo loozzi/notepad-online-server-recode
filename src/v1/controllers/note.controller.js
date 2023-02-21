@@ -53,19 +53,19 @@ module.exports = {
     }
   },
   edit: async (req, res, next) => {
-    // try {
-    const { code, message, elements } = await noteService.edit({
-      ...req.body,
-      _id: res.data._id,
-    });
+    try {
+      const { code, message, elements } = await noteService.edit({
+        ...req.body,
+        _id: res.data._id,
+      });
 
-    res.json({ code, message, elements });
-    // } catch (err) {
-    //   res.json({
-    //     code: 500,
-    //     message: "Internal Server Error",
-    //   });
-    // }
+      res.json({ code, message, elements });
+    } catch (err) {
+      res.json({
+        code: 500,
+        message: "Internal Server Error",
+      });
+    }
   },
   get: async (req, res, next) => {
     try {
@@ -86,16 +86,16 @@ module.exports = {
     }
   },
   getAll: async (req, res, next) => {
-    // try {
-    const { page, limit } = req.query;
-    const { code, message, elements } = await noteService.getAll({
-      _id: res.data._id,
-      page,
-      limit,
-    });
-    res.json({ code, message, elements });
-    // } catch (err) {
-    //   res.json({ code: 500, message: "Internal Server Error" });
-    // }
+    try {
+      const { page, limit } = req.query;
+      const { code, message, elements } = await noteService.getAll({
+        _id: res.data._id,
+        page,
+        limit,
+      });
+      res.json({ code, message, elements });
+    } catch (err) {
+      res.json({ code: 500, message: "Internal Server Error" });
+    }
   },
 };
