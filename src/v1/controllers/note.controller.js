@@ -5,12 +5,7 @@ const noteService = require("../services/note.service");
 module.exports = {
   create: async (req, res, next) => {
     try {
-      let password = req.body.password;
-      if (password.length > 0) {
-        password = md5(password);
-      } else {
-        password = "";
-      }
+      let password = req.body.password.trim();
       let permalink = random.permalink(10);
 
       const { code, message, elements } = await noteService.create({
@@ -36,7 +31,8 @@ module.exports = {
   },
   delete: async (req, res, next) => {
     try {
-      const { permalink, password } = req.body;
+      const { permalink, password } = req.query;
+
       const { code, message, elements } = await noteService.delete({
         permalink,
         password,

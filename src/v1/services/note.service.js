@@ -79,6 +79,8 @@ module.exports = {
           message: "Cannot delete, try again",
           elements: {
             username: user.username,
+            permalink: permalink,
+            password: password.length > 0 ? md5(password) : "",
           },
         };
     } else
@@ -200,6 +202,7 @@ module.exports = {
           tags: note.password.length === 0 ? note.tags.join(", ") : "Locked",
           created_at: note.created_at,
           view: note.view,
+          isProtected: note.password.length === 0 ? false : true,
         })),
       },
     };

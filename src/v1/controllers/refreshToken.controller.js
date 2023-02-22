@@ -42,7 +42,7 @@ module.exports = {
   delete: async (req, res, next) => {
     try {
       const userToken = await _UsetToken.findOne({
-        token: req.body.refreshToken,
+        token: req.query.refreshToken,
       });
 
       if (userToken) {
