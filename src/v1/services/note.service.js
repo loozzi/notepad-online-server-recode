@@ -24,6 +24,9 @@ module.exports = {
       create_at: create_at,
     });
 
+    user.$inc("total", 1);
+    await user.save();
+
     return {
       code: 200,
       message: "Note created successfully",
@@ -68,12 +71,14 @@ module.exports = {
         permalink: permalink,
         password: password.length > 0 ? md5(password) : "",
       });
-      if (!!note)
+      if (!!note) {
+        user.$inc("total", -1);
+        await user.save();
         return {
           code: 200,
           message: "Deleted note successfully",
         };
-      else
+      } else
         return {
           code: 401,
           message: "Cannot delete, try again",
