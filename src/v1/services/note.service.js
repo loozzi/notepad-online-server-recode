@@ -213,6 +213,12 @@ module.exports = {
     };
   },
   search: async ({ query }) => {
+    if (query.length === 0) {
+      return {
+        code: 401,
+        message: "Empty query",
+      };
+    }
     var regex = new RegExp(query, "i");
     const byTitles = await _Note.find({
       title: regex,
@@ -226,7 +232,6 @@ module.exports = {
 
     return {
       code: 200,
-      message: "ok vcdd",
       elements: {
         byTitles: byTitles.map((note) => ({
           title: note.title,
