@@ -241,7 +241,14 @@ module.exports = {
           tags: note.tags,
           created_at: note.created_at,
         })),
-        byTags: byTags,
+        byTags: byTags.map((note) => ({
+          title: note.title,
+          permalink: note.permalink,
+          view: note.view,
+          username: note.username,
+          tags: note.tags,
+          created_at: note.created_at,
+        })),
       },
     };
   },
