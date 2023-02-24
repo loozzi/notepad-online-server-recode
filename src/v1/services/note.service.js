@@ -212,4 +212,32 @@ module.exports = {
       },
     };
   },
+  search: async ({ query }) => {
+    var regex = new RegExp(query, "i");
+    const byTitles = await _Note.find({
+      title: regex,
+    });
+
+    const byTags = await _Note.find({
+      tags: {
+        $in: [regex],
+      },
+    });
+
+    return {
+      code: 200,
+      message: "ok vcdd",
+      elements: {
+        byTitles: byTitles.map((note) => ({
+          title: note.title,
+          permalink: note.permalink,
+          view: note.view,
+          username: note.username,
+          tags: note.tags,
+          created_at: note.created_at,
+        })),
+        byTags: byTags,
+      },
+    };
+  },
 };

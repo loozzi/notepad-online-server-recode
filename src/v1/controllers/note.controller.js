@@ -94,4 +94,16 @@ module.exports = {
       res.json({ code: 500, message: "Internal Server Error" });
     }
   },
+  search: async (req, res, next) => {
+    try {
+      const { q } = req.query;
+      const { code, message, elements } = await noteService.search({
+        query: q,
+      });
+
+      res.json({ code, message, elements });
+    } catch (err) {
+      res.json({ code: 500, message: "Internal Server Error" });
+    }
+  },
 };

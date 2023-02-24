@@ -8,6 +8,8 @@ router.get("/", noteController.get);
 
 router.get("/all", middleware.isLogging, noteController.getAll);
 
+router.get("/search", noteController.search);
+
 router.post("/", middleware.isLogging, noteController.create);
 
 router.put("/", middleware.isLogging, noteController.edit);
