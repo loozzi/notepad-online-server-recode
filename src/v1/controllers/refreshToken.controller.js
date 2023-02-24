@@ -11,7 +11,7 @@ const privateKey = fs.readFileSync(
 module.exports = {
   generate: async (req, res, next) => {
     const { error, tokenDetails, message } = await verifyRefreshToken({
-      refreshToken: req.body.refreshToken,
+      refreshToken: req.query.refreshToken,
     });
 
     if (!error) {
@@ -36,6 +36,7 @@ module.exports = {
       res.json({
         code: 401,
         message: message,
+        refreshToken: req.query.refreshToken,
       });
     }
   },
