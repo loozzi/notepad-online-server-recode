@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+require("dotenv").config();
 
 const app = express();
 app.use(morgan("common"));
@@ -26,7 +27,7 @@ app.use(
 );
 
 mongoose.connect(
-  "mongodb+srv://loozzi_myapp:pI5NCGIey19ga1nK@cluster0.hqs96.mongodb.net/notepad_online",
+  process.env.MONGODB_CONNECTION,
   { serverSelectionTimeoutMS: 3000 },
   (err) => {
     if (err) {
